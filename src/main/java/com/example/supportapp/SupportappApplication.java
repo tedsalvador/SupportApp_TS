@@ -23,7 +23,7 @@ public class SupportappApplication {
 					.allowCredentials(false)
 					.allowedOrigins("*")
 					.allowedMethods("GET","POST","PUT","DELETE","OPTIONS","HEAD");
-					// .allowedOrigins("http://localhost:9000");
+				System.out.println("CORS configuration applied");
 			}
 		};
 	}
