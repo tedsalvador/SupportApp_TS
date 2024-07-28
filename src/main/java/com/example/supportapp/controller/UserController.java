@@ -3,10 +3,13 @@ package com.example.supportapp.controller;
 import com.example.supportapp.model.User;
 import com.example.supportapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -44,9 +47,36 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/login")
+/*     @PostMapping("/login")
     public ResponseEntity<User> authenticateUser(@RequestParam String username, @RequestParam String userPassword) {
         Optional<User> user = userService.authenticateUser(username, userPassword);
         return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(401).build());
+    }
+ */
+/* @PostMapping("/login")
+public ResponseEntity<?> authenticateUser(@RequestParam String username, @RequestParam String userPassword) {
+    Optional<User> user = userService.authenticateUser(username, userPassword);
+    if (user.isPresent()) {
+        return ResponseEntity.ok(user.get());
+    } else {
+        Map<String, String> errorResponse = new HashMap<>();
+        errorResponse.put("error", "Invalid username or password");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+    } */
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+    
+    @PostMapping("/login")
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+        Optional<User> user = userService.authenticateUser(loginRequest.getUsername(), loginRequest.getUserPassword());
+        if (user.isPresent()) {
+            return ResponseEntity.ok(user.get());
+        } else {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "Invalid username or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+        }
     }
 }
