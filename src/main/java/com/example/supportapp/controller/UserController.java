@@ -3,7 +3,7 @@ package com.example.supportapp.controller;
 import com.example.supportapp.model.User;
 import com.example.supportapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+//import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +19,20 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
+/*     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.createUser(user));
+    } */
+
+    @PostMapping("/signup")
+    public ResponseEntity<?> createUser(@RequestBody User user) {
+        try {
+            User savedUser = userService.createUser(user);
+            //return ResponseEntity.ok(savedUser); ok
+            return ResponseEntity.status(201).body(savedUser);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error occurred while creating the user");
+        }
     }
 
     @GetMapping("/{id}")
@@ -43,8 +54,15 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
-        return ResponseEntity.noContent().build();
+        /*userService.deleteUser(id);*/
+        /*return ResponseEntity.noContent().build();*/
+        /*return ResponseEntity.status(201).build();*/
+        try {
+            userService.deleteUser(id);
+            return ResponseEntity.status(200).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(404).build();
+        }
     }
 
 /*     @PostMapping("/login")
@@ -53,16 +71,6 @@ public class UserController {
         return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(401).build());
     }
  */
-/* @PostMapping("/login")
-public ResponseEntity<?> authenticateUser(@RequestParam String username, @RequestParam String userPassword) {
-    Optional<User> user = userService.authenticateUser(username, userPassword);
-    if (user.isPresent()) {
-        return ResponseEntity.ok(user.get());
-    } else {
-        Map<String, String> errorResponse = new HashMap<>();
-        errorResponse.put("error", "Invalid username or password");
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
-    } */
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -76,7 +84,8 @@ public ResponseEntity<?> authenticateUser(@RequestParam String username, @Reques
         } else {
             Map<String, String> errorResponse = new HashMap<>();
             errorResponse.put("error", "Invalid username or password");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+            //return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+            return ResponseEntity.status(401).body(errorResponse);
         }
     }
 }
