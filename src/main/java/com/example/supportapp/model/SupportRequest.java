@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 
 
 @Entity
+//@Table (name = "support_request" )
 public class SupportRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

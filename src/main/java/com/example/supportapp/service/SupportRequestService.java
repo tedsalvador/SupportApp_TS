@@ -37,4 +37,20 @@ public class SupportRequestService {
     public void deleteSupportRequest(Long id) {
         supportRequestRepository.deleteById(id);
     }
+
+ 
+
+    
+
+    public Optional<SupportRequest> findById(Long idSupport) {
+        return supportRequestRepository.findById(idSupport);
+    }
+
+    public SupportRequest save(SupportRequest supportRequest) {
+        return supportRequestRepository.save(supportRequest);
+    }
+
+    public void deleteById(Long idSupport) {
+        supportRequestRepository.deleteById(idSupport);
+    }
 }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 //@RequestMapping("/api/support_requests")
 @RestController
@@ -29,11 +30,17 @@ public class SupportRequestController {
         return supportRequestRepository.findAll();
     }
 
-    @GetMapping("/{id}")
+/*     @GetMapping("/{id}")
     public ResponseEntity<SupportRequest> getSupportRequestById(@PathVariable Long id) {
-        return supportRequestService.getSupportRequestById(id)
+         return supportRequestService.getSupportRequestById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    } */
+
+    @GetMapping("/{id}")
+    public ResponseEntity<SupportRequest> getSupportRequestById(@PathVariable Long id) {
+        Optional<SupportRequest> supportRequest = supportRequestService.findById(id);
+        return supportRequest.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping

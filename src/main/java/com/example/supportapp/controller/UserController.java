@@ -49,9 +49,6 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        /*userService.deleteUser(id);*/
-        /*return ResponseEntity.noContent().build();*/
-        /*return ResponseEntity.status(201).build();*/
         try {
             userService.deleteUser(id);
             return ResponseEntity.status(200).build();
@@ -59,13 +56,6 @@ public class UserController {
             return ResponseEntity.status(404).build();
         }
     }
-
-/*     @PostMapping("/login")
-    public ResponseEntity<User> authenticateUser(@RequestParam String username, @RequestParam String userPassword) {
-        Optional<User> user = userService.authenticateUser(username, userPassword);
-        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.status(401).build());
-    }
- */
 
     public UserController(UserService userService) {
         this.userService = userService;
