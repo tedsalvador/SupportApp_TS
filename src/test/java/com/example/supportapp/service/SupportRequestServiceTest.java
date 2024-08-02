@@ -39,7 +39,7 @@ public class SupportRequestServiceTest {
         supportRequest.setDateRequest(LocalDateTime.now());
         supportRequest.setIdUser(1L);
         supportRequest.setDescription("Sample support request");
-        supportRequest.setType("Technical");
+        supportRequest.setSupportType("Technical");
         supportRequest.setStatus("Open");
         supportRequest.setDateAttention(null);
     }
@@ -74,7 +74,7 @@ public class SupportRequestServiceTest {
         updatedRequest.setDateRequest(LocalDateTime.now());
         updatedRequest.setIdUser(1L);
         updatedRequest.setDescription("Updated description");
-        updatedRequest.setType("Technical");
+        updatedRequest.setSupportType("Technical");
         updatedRequest.setStatus("Closed");
         updatedRequest.setDateAttention(LocalDateTime.now());
 

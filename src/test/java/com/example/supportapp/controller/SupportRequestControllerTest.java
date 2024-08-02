@@ -41,7 +41,7 @@ public class SupportRequestControllerTest {
         supportRequest.setDateRequest(LocalDateTime.of(2024, 7, 25, 10, 0));
         supportRequest.setIdUser(1L);
         supportRequest.setDescription("Support needed for issue #1234");
-        supportRequest.setType("Technical");
+        supportRequest.setSupportType("Technical");
         supportRequest.setStatus("Open");
         supportRequest.setDateAttention(LocalDateTime.of(2024, 7, 25, 10, 0));
 
@@ -52,7 +52,7 @@ public class SupportRequestControllerTest {
     public void testCreateSupportRequest() throws Exception {
         when(supportRequestService.createSupportRequest(any(SupportRequest.class))).thenReturn(supportRequest);
 
-        mockMvc.perform(post("/api/support-requests")
+        mockMvc.perform(post("/api/support_requests")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"dateRequest\":\"2024-07-25T10:00:00\",\"idUser\":1,\"description\":\"Support needed for issue #1234\",\"supportType\":\"Technical\",\"status\":\"Open\",\"date\":\"2024-07-25\"}"))
                 .andExpect(status().isOk())
@@ -63,7 +63,7 @@ public class SupportRequestControllerTest {
     public void testGetSupportRequestById() throws Exception {
         when(supportRequestService.getSupportRequestById(1L)).thenReturn(Optional.of(supportRequest));
 
-        mockMvc.perform(get("/api/support-requests/1")
+        mockMvc.perform(get("/api/support_requests/1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.description").value("Support needed for issue #1234"));

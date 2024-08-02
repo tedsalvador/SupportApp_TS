@@ -1,6 +1,8 @@
 package com.example.supportapp.controller;
 
 import com.example.supportapp.model.SupportRequest;
+import com.example.supportapp.repository.SupportRequestRepository;
+
 import com.example.supportapp.service.SupportRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,16 +10,23 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+//@RequestMapping("/api/support_requests")
 @RestController
-@RequestMapping("/api/support-requests")
+@RequestMapping("/api/support_requests")
 public class SupportRequestController {
 
-    @Autowired
     private SupportRequestService supportRequestService;
+    private SupportRequestRepository supportRequestRepository;
 
+    @Autowired
+    public SupportRequestController(SupportRequestRepository supportRequestRepository) {
+        this.supportRequestRepository = supportRequestRepository;
+    }
+
+    //@GetMapping("/support_requests")
     @GetMapping
     public List<SupportRequest> getAllSupportRequests() {
-        return supportRequestService.getAllSupportRequests();
+        return supportRequestRepository.findAll();
     }
 
     @GetMapping("/{id}")

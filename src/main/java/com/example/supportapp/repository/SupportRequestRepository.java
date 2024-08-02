@@ -1,11 +1,3 @@
-/* package com.example.supportapp.repository;
-
-import com.example.supportapp.model.SupportRequest;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-public interface SupportRequestRepository extends JpaRepository<SupportRequest, Long> {
-} */
-
 package com.example.supportapp.repository;
 
 import com.example.supportapp.model.SupportRequest;

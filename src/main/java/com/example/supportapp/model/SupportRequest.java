@@ -7,11 +7,13 @@ import javax.persistence.Id;
 import javax.persistence.Column;
 import java.time.LocalDateTime;
 
+
 @Entity
 public class SupportRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idSupport;
+    @Column(name = "id_support")
+    private Long idsupport;
 
     @Column(name = "date_Request")
     private LocalDateTime dateRequest;
@@ -22,7 +24,7 @@ public class SupportRequest {
     private String description;
 
     @Column(name = "support_Type")
-    private String type;
+    private String supportType;
 
     private String status;
 
@@ -32,11 +34,11 @@ public class SupportRequest {
     // Getters y setters
 
     public Long getIdSupport() {
-        return idSupport;
+        return idsupport;
     }
 
-    public void setIdSupport(Long idSupport) {
-        this.idSupport = idSupport;
+    public void setIdSupport(Long idsupport) {
+        this.idsupport = idsupport;
     }
 
     public LocalDateTime getDateRequest() {
@@ -63,12 +65,12 @@ public class SupportRequest {
         this.description = description;
     }
 
-    public String getType() {
-        return type;
+    public String getSupportType() {
+        return supportType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setSupportType(String type) {
+        this.supportType = type;
     }
 
     public String getStatus() {
